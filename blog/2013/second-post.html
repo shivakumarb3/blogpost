@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Coding Part</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+   
+	
+		<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="">Shiva Kumar</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../about.html">About</a></li>
+			
+            
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	
+	<div class="page-header">
+		<h1>Coding part</h1>
+	</div>
+
+	<p><em></em></p>
+	<pre class="prettyprint">
+<code>
+
+// This sample uses the Apache HTTP client from HTTP Components (http://hc.apache.org/httpcomponents-client-ga/)
+
+// You need to add the following Apache HTTP client libraries to your project:
+// httpclient-4.5.3.jar
+// httpcore-4.4.6.jar
+// commons-logging-1.2.jar
+
+import java.net.URI;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+public class LuisGetRequest {
+
+    public static void main(String[] args) 
+    {
+        HttpClient httpclient = HttpClients.createDefault();
+
+        try
+        {
+
+            // The ID of a public sample LUIS app that recognizes intents for turning on and off lights
+            String AppId = "df67dcdb-c37d-46af-88e1-8b97951ca1c2";
+            
+            // Add your subscription key 
+            String SubscriptionKey = "YOUR-SUBSCRIPTION-KEY";
+
+        URIBuilder builder = 
+            new URIBuilder("https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/" + AppId + "?");
+
+            builder.setParameter("q", "turn on the left light");
+            builder.setParameter("timezoneOffset", "0");
+            builder.setParameter("verbose", "false");
+            builder.setParameter("spellCheck", "false");
+            builder.setParameter("staging", "false");
+
+            URI uri = builder.build();
+            HttpGet request = new HttpGet(uri);
+            request.setHeader("Ocp-Apim-Subscription-Key", SubscriptionKey);
+
+            HttpResponse response = httpclient.execute(request);
+            HttpEntity entity = response.getEntity();
+
+
+            if (entity != null) 
+            {
+                System.out.println(EntityUtils.toString(entity));
+            }
+        }
+
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+</code>
+</pre> 
+<p>First we need to add the jar files in your project properties required for http classes and methods to invoke
+  <br>
+  you can find the required jar file here <a href="http://www.java2s.com/Code/Jar/a/Downloadapachehttpcomponentshttpclientjar.htm">Click here</a>
+  <br>
+  write the above code as it is but change the subscribtion key, which will be available in lusi.ai in application information
+  <br>
+  you can find the image of subscription here
+  
+  <img src="D:\luissub.png" width="500" height="333">
+  <br>
+  entity object which is returned by the method getEntity() consist of json object so we need to parse the entity 
+  <br>object to normal String to detect the  intent and entity in the statement, which we use to give the response.
+	
+
+
+	
+</ul> 
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>

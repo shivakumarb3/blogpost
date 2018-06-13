@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Conversion of JSON object to String</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+   
+	
+		<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="">Shiva Kumar</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../about.html">About</a></li>
+			
+            
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	
+	<div class="page-header">
+		<h1>Conversion Of JSON Object To String</h1>
+	</div>
+
+	<p><em></em></p>
+
+	
+<p>The below one is the code to convert from JSON to String
+</p>
+<br>
+<p>This is the some example code of my project(A sample project) to convert from JSON to String<br>
+</p>
+<h>This is the JSON code of sample query</h>
+<pre class="prettyprint">
+<code>
+{
+  "query": "turn off the light",
+  "topScoringIntent": {
+    "intent": "turn off",
+    "score": 0.8525879
+  },
+  "entities": [
+    {
+      "entity": "light",
+      "type": "devices",
+      "startIndex": 13,
+      "endIndex": 17,
+      "resolution": {
+        "values": [
+          "fan",
+          "light"
+        ]
+      }
+    }
+  ]
+}
+</code>
+</pre>
+<br>
+<h>This is the conversion code for above JSON object</h>
+<pre class="prettyprint">
+<code>
+String content = EntityUtils.toString(entity);
+            System.out.println(content);
+            
+            JSONParser jsonParser = new JSONParser();
+            
+             JSONObject jsonObject = (JSONObject) jsonParser.parse(content);
+             JSONObject structure = (JSONObject) jsonObject.get("topScoringIntent");
+             
+             System.out.println("hi");
+             System.out.println("hello");
+          String intension =    (String)   structure.get("intent");
+            
+            
+             
+             JSONArray lang= (JSONArray) jsonObject.get("entities");
+             Iterator <JSONObject> i=lang.iterator();
+             String ent="";
+             String type="";
+             while (i.hasNext()) {
+            	
+            	                 JSONObject innerObj = (JSONObject) i.next();
+            	 
+            	                 ent=   (String)innerObj.get("entity");
+            	                  
+            	 
+            	                  type=(String)innerObj.get("type");
+            	 
+            	             }
+             if(intension.equals("turn off")&&ent.equals("light"))
+            	 System.out.println("we are turning off the light");
+             if(intension.equals("hi"))
+            	 System.out.println("hi I am shiva kumar 's bot I am happy to help you");
+             
+            	 System.out.println("intent is"+intension+"   "+"entity is "+" "+ent+"type is "+type);
+
+
+</code>
+</pre> 
+<p>To know more about JSon conversions you can visit the site<a href="https://examples.javacodegeeks.com/core-java/json/java-json-parser-example/">visit</a></p>
+<p>Add the jar files required for the JSON conversion <a href="http://www.java2s.com/Code/Jar/j/Downloadjsonsimple111sourcesjar.htm">click here</a>
+	<br>
+	And congratualtions you have created your first bot successfully.
+	
+	</p>
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>

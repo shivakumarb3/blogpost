@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>shiva kumar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/asciidoctor.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+   
+
+		<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="">shiva kumar</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+			<li><a href="archive.html">Archive</a></li>
+            
+            
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+	<div class="page-header">
+		<h1>Blog</h1>
+		  <h1>Making A  Sample Bot with java Skills <h1>
+	</div>
+	
+		<a href="blog/2013/fourth-post.html"><h1>Introduction</h1></a>
+		<p></p>
+		<div class="paragraph"> 
+ <p> An Internet Bot, also known as web robot, WWW robot or simply -bot-, is a software application that runs automated tasks (scripts) over the Internet.
+    <br>
+	The bot works as a assistant for a work like booking a ticket to movies,travels,and other purposes. These days bots are using in every industry to automate the 
+	work and to reduce the repetitive work load. So then why can't we learn making a bot and be useful to industries.
+	<br>
+	</p>
+		<a href="blog/2013/third-post.html"><h1>Requirements To Make A Console Bot</h1></a>
+		<p> </p>
+		<div class="paragraph"> 
+ <p> </p>
+ </div>
+   <ul class="b">
+  <li>Java SDK</li>
+  <li>Account in luis.ai(NLP)</li>
+  <li>Any java supported IDE</li>
+</ul>
+<br>
+
+ 
+ <h>Steps in luis.ai</h>
+ <div class="paragraph"> 
+ <p>
+     1.Registration<br>
+     2.Press create a new App<br>
+     3.Naming your app<br>
+     4.Knowing about the intent and entities in your bot<br>
+       what is an intent and entity?<br>
+        It would be better if we take example, for example consider a sentence "Play a song"<br>
+         in this the intent of a sentence is "play"(verb) and entity is song(name/noun/on which the action is gonna be performed)<br>
+	 5.Train your bot <br>
+	 In case if you have any doubts and for better understanding you can visit this  blog<a href="https://docs.microsoft.com/en-us/azure/cognitive-services/luis/luis-how-to-add-example-utterances">Visit</a>
+     		 </p>
+  	
+		<a href="blog/2013/second-post.html"><h1>Coding Part</h1></a>
+		<p><em></em></p>
+	<pre class="prettyprint">
+<code>
+
+// This sample uses the Apache HTTP client from HTTP Components (http://hc.apache.org/httpcomponents-client-ga/)
+
+// You need to add the following Apache HTTP client libraries to your project:
+// httpclient-4.5.3.jar
+// httpcore-4.4.6.jar
+// commons-logging-1.2.jar
+
+import java.net.URI;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+public class LuisGetRequest {
+
+    public static void main(String[] args) 
+    {
+        HttpClient httpclient = HttpClients.createDefault();
+
+        try
+        {
+
+            // The ID of a public sample LUIS app that recognizes intents for turning on and off lights
+            String AppId = "df67dcdb-c37d-46af-88e1-8b97951ca1c2";
+            
+            // Add your subscription key 
+            String SubscriptionKey = "YOUR-SUBSCRIPTION-KEY";
+
+        URIBuilder builder = 
+            new URIBuilder("https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/" + AppId + "?");
+
+            builder.setParameter("q", "turn on the left light");
+            builder.setParameter("timezoneOffset", "0");
+            builder.setParameter("verbose", "false");
+            builder.setParameter("spellCheck", "false");
+            builder.setParameter("staging", "false");
+
+            URI uri = builder.build();
+            HttpGet request = new HttpGet(uri);
+            request.setHeader("Ocp-Apim-Subscription-Key", SubscriptionKey);
+
+            HttpResponse response = httpclient.execute(request);
+            HttpEntity entity = response.getEntity();
+
+
+            if (entity != null) 
+            {
+                System.out.println(EntityUtils.toString(entity));
+            }
+        }
+
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+</code>
+</pre> 
+<p>First we need to add the jar files in your project properties required for http classes and methods to invoke
+  <br>
+  you can find the required jar file here <a href="http://www.java2s.com/Code/Jar/a/Downloadapachehttpcomponentshttpclientjar.htm">Click here</a>
+  <br>
+  write the above code as it is but change the subscribtion key, which will be available in lusi.ai in application information
+  <br>
+  you can find the image of subscription here
+  
+  <img src="D:\luissub.png" width="500" height="333">
+  <br>
+  entity object which is returned by the method getEntity() consist of json object so we need to parse the entity 
+  <br>object to normal String to detect the  intent and entity in the statement, which we use to give the response.
+	</p>
+		<a href="blog/2013/first-post.html"><h1>Conversion of JSON object to String</h1></a>
+		<p>The below one is the code to convert from JSON to String
+</p>
+<br>
+<p>This is the some example code of my project(A sample project) to convert from JSON to String<br>
+</p>
+<h>This is the JSON code of sample query</h>
+<pre class="prettyprint">
+<code>
+{
+  "query": "turn off the light",
+  "topScoringIntent": {
+    "intent": "turn off",
+    "score": 0.8525879
+  },
+  "entities": [
+    {
+      "entity": "light",
+      "type": "devices",
+      "startIndex": 13,
+      "endIndex": 17,
+      "resolution": {
+        "values": [
+          "fan",
+          "light"
+        ]
+      }
+    }
+  ]
+}
+</code>
+</pre>
+<br>
+<h>This is the conversion code for above JSON object</h>
+<pre class="prettyprint">
+<code>
+String content = EntityUtils.toString(entity);
+            System.out.println(content);
+            
+            JSONParser jsonParser = new JSONParser();
+            
+             JSONObject jsonObject = (JSONObject) jsonParser.parse(content);
+             JSONObject structure = (JSONObject) jsonObject.get("topScoringIntent");
+             
+             System.out.println("hi");
+             System.out.println("hello");
+          String intension =    (String)   structure.get("intent");
+            
+            
+             
+             JSONArray lang= (JSONArray) jsonObject.get("entities");
+             Iterator <JSONObject> i=lang.iterator();
+             String ent="";
+             String type="";
+             while (i.hasNext()) {
+            	
+            	                 JSONObject innerObj = (JSONObject) i.next();
+            	 
+            	                 ent=   (String)innerObj.get("entity");
+            	                  
+            	 
+            	                  type=(String)innerObj.get("type");
+            	 
+            	             }
+             if(intension.equals("turn off")&&ent.equals("light"))
+            	 System.out.println("we are turning off the light");
+             if(intension.equals("hi"))
+            	 System.out.println("hi I am shiva kumar 's bot I am happy to help you");
+             
+            	 System.out.println("intent is"+intension+"   "+"entity is "+" "+ent+"type is "+type);
+
+
+</code>
+</pre> 
+<p>To know more about JSon conversions you can visit the site<a href="https://examples.javacodegeeks.com/core-java/json/java-json-parser-example/">visit</a></p>
+<p>Add the jar files required for the JSON conversion <a href="http://www.java2s.com/Code/Jar/j/Downloadjsonsimple111sourcesjar.htm">click here</a>
+	<br>
+	And congratualtions you have created your first bot successfully.
+	
+	</p>
+		
+	<hr />
+	
+	<p>Older posts are available in the <a href="archive.html">archive</a>.</p>
+
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/prettify.js"></script>
+    
+  </body>
+</html>
